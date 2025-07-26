@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="container mt-5">
+    <h2>Mis Películas Favoritas ❤️</h2>
+
+    {% if peliculas %}
+        <div class="row">
+            {% for pelicula in peliculas %}
+                <div class="col-md-4 mb-4">
+                    <div class="card h-100">
+                        <img src="{{ pelicula.imagen_url }}" class="card-img-top" alt="Póster">
+                        <div class="card-body">
+                            <h5 class="card-title">{{ pelicula.titulo }}</h5>
+                            <p class="card-text">{{ pelicula.descripcion[:100] }}...</p>
+                            <a href="{{ url_for('main.movie_detail', id=pelicula.id) }}" class="btn btn-outline-primary">Ver Detalle</a>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    {% else %}
+        <p>No has marcado ninguna película como favorita.</p>
+    {% endif %}
+</div>
+{% endblock %}

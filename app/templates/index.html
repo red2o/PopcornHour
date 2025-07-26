@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="text-center mt-5">
+    <h1 class="mb-4">🎬 Bienvenido a PopcornHour</h1>
+    <p>Explora, califica y comenta tus películas favoritas.</p>
+
+    <a href="{{ url_for('auth.login') }}" class="btn btn-primary mt-3 me-2">Iniciar Sesión</a>
+    <a href="{{ url_for('auth.register') }}" class="btn btn-success mt-3">Registrarse</a>
+</div>
+{% endblock %}

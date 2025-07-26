@@ -1,0 +1,75 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="container mt-5">
+    <div class="row">
+        <div class="col-md-4">
+            <img src="{{ pelicula.imagen_url }}" class="img-fluid" alt="Póster">
+        </div>
+        <div class="col-md-8">
+            <h2>{{ pelicula.titulo }}</h2>
+
+            <!-- Botón de favoritos -->
+            <form method="POST" action="{{ url_for('main.toggle_favorito', id_pelicula=pelicula.id_pelicula) }}">
+                {% if es_favorito %}
+                    <button type="submit" class="btn btn-outline-danger mb-3">💔 Quitar de Favoritos</button>
+                {% else %}
+                    <button type="submit" class="btn btn-outline-success mb-3">❤️ Agregar a Favoritos</button>
+                {% endif %}
+            </form>
+
+            <p>{{ pelicula.descripcion }}</p>
+
+            {% if promedio %}
+                <p><strong>Promedio de calificaciones:</strong> ⭐ {{ promedio }}</p>
+            {% else %}
+                <p><strong>Sin calificaciones aún.</strong></p>
+            {% endif %}
+        </div>
+    </div>
+
+    <hr>
+
+    <div class="mt-4">
+        <h4>Califica esta película</h4>
+        <form method="POST">
+            {{ rating_form.hidden_tag() }}
+            <div class="mb-3">
+                {{ rating_form.puntuacion.label(class="form-label") }}
+                <div class="form-check form-check-inline">
+                    {% for subfield in rating_form.puntuacion %}
+                        <label class="form-check-label me-3">
+                            {{ subfield() }} {{ subfield.label.text }}
+                        </label>
+                    {% endfor %}
+                </div>
+            </div>
+            {{ rating_form.submit(class="btn btn-warning") }}
+        </form>
+    </div>
+
+    <hr>
+
+    <div class="mt-4">
+        <h4>Comentarios</h4>
+        <form method="POST">
+            {{ comentario_form.hidden_tag() }}
+            <div class="mb-3">
+                {{ comentario_form.contenido.label(class="form-label") }}
+                {{ comentario_form.contenido(class="form-control", rows=3) }}
+            </div>
+            {{ comentario_form.submit(class="btn btn-primary") }}
+        </form>
+
+        <div class="mt-4">
+            {% for comentario in comentarios %}
+                <div class="border p-2 mb-2">
+                    <strong>{{ comentario.usuario.nombre }}</strong>
+                    <small class="text-muted">{{ comentario.fecha.strftime('%d/%m/%Y %H:%M') }}</small>
+                    <p class="mb-0">{{ comentario.contenido }}</p>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+{% endblock %}
+

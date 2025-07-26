@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="container mt-5">
+    <h2>Mi Perfil</h2>
+    <div class="card">
+        <div class="card-body">
+            <h5 class="card-title">{{ user.nombre }}</h5>
+            <p class="card-text"><strong>Email:</strong> {{ user.email }}</p>
+            <p class="card-text"><strong>Tipo de cuenta:</strong> {{ user.tipo_usuario|capitalize }}</p>
+            <hr>
+            <p><strong>Películas favoritas:</strong> {{ total_favoritos }}</p>
+            <p><strong>Comentarios realizados:</strong> {{ total_comentarios }}</p>
+        </div>
+    </div>
+</div>
+{% endblock %}

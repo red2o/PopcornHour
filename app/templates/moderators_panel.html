@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="container mt-5">
+    <h2>Panel del Moderador</h2>
+    <p>Bienvenido, {{ user.nombre }}. Aquí están tus películas subidas:</p>
+
+    <a href="{{ url_for('main.subir_pelicula') }}" class="btn btn-success mb-3">
+        ➕ Subir Nueva Película
+    </a>
+
+    {% if peliculas %}
+        <div class="row">
+            {% for pelicula in peliculas %}
+                <div class="col-md-4 mb-4">
+                    <div class="card h-100">
+                        <img src="{{ pelicula.imagen_url }}" class="card-img-top" alt="Póster">
+                        <div class="card-body">
+                            <h5 class="card-title">{{ pelicula.titulo }}</h5>
+                            <p class="card-text">{{ pelicula.descripcion }}</p>
+                            <a href="{{ url_for('main.movie_detail', id=pelicula.id_pelicula) }}" class="btn btn-primary">Ver Detalle</a>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    {% else %}
+        <p>No has subido ninguna película aún.</p>
+    {% endif %}
+</div>
+{% endblock %}
